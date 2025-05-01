@@ -84,7 +84,7 @@ body {
 /* Timeline Sections */
 .sections {
   margin-left: 150px;
-  padding-top: 100px;
+  padding-top: 0px;
 }
 
 .timeline-section {
@@ -303,14 +303,15 @@ table td {
 .site-header {
   border-top: 5px solid rgb(66.25, 66.25, 66.25);
   border-bottom: 1px solid #e8e8e8;
-  min-height: 55.95px;
+  min-height: 30px;
+  max-height: 40px;
   position: relative;
 }
 
 .site-title {
   font-size: 26px;
   font-weight: 300;
-  line-height: 54px;
+  line-height: 35px;
   letter-spacing: -1px;
   margin-bottom: 0;
   float: left;
@@ -321,7 +322,7 @@ table td {
 
 .site-nav {
   float: right;
-  line-height: 54px;
+  line-height: 35px;
 }
 .site-nav .nav-trigger {
   display: none;
@@ -349,18 +350,18 @@ table td {
   .site-nav label[for=nav-trigger] {
     display: block;
     float: right;
-    width: 36px;
-    height: 36px;
+    width: 20px;
+    height: 20px;
     z-index: 2;
     cursor: pointer;
   }
   .site-nav .menu-icon {
     display: block;
     float: right;
-    width: 36px;
-    height: 26px;
+    width: 20px;
+    height: 20px;
     line-height: 0;
-    padding-top: 10px;
+    padding-top: 4px;
     text-align: center;
   }
   .site-nav .menu-icon > svg {
