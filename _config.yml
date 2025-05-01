@@ -35,6 +35,12 @@ include:
   - "assets"
   - "_layouts"
 
+exclude:
+- "_site"
+
+sass:
+  style: compressed
+
 # Build settings
 theme: minima
 plugins:
