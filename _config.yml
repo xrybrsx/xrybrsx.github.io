@@ -42,7 +42,7 @@ sass:
   style: compressed
 
 # Build settings
-theme: minima
+# theme: minima
 plugins:
   - jekyll-feed
 
