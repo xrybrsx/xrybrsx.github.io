@@ -42,8 +42,8 @@
 <!-- ✨ Your timeline starts here -->
 <div class="timeline-nav">
   <ul>
-    <li><a href="#intro" class="timeline-link active" data-title="Intro">About Me</a></li>
-    <li><a href="#job-experience" class="timeline-link" data-title="Job Experience">Job Experience</a></li>
+    <li><a href="#intro" class="timeline-link" data-title="Intro">About Me</a></li>
+    <li><a href="#experience" class="timeline-link" data-title="Experience">Experience</a></li>
     <li><a href="#university" class="timeline-link" data-title="University">University</a></li>
     <li><a href="#high-school" class="timeline-link" data-title="High School">High School</a></li>
   </ul>
@@ -53,16 +53,20 @@
 
     <section id="intro" class="timeline-section">
     <h2>Introduction</h2>
-    <p>Hi, I'm Raya. I am a Computer Science graduate with a strong focus on software, web, and cloud-based applications development. 
-      Experienced in Full-Stack Development, currently working as a Discovey & Planning Lead.</p>
+    <p>I'm Raya, a Computer Science graduate from the University of Southampton with experience in QA, full-stack development, and cloud architecture. 
+      I currently work as part of a Microsoft program, supporting Software Developing Companies 
+      in aligning their solutions with Azure best practices and preparing them for publication on the Microsoft commercial marketplace. 
+      My background in application development and my strong communication skills help me collaborate effectively across technical and business teams. 
+      I’m always looking to grow my knowledge and contribute to building reliable, well-structured software.</p>
+</section>
 
-
-  <section id="job-experience" class="timeline-section">
+  <section id="experience" class="timeline-section">
     <h2>Job Experience</h2>
     <ul>
       {% for post in site.posts %}
         <li>
           <h3>{{ post.title }}</b></h3>
+          <h4>{{ post.company }} <br> {{ post.timeline }} <br> {{ post.location }}</h4>
           <p>{{ post.content }}</p>        
         </li>
       {% endfor %}
@@ -86,7 +90,18 @@
   </section>
   <section id="high-school" class="timeline-section">
     <h2>First English Language School</h2>
-    <p></p>
+    <p>Completed a specialized academic track with a focus on Advanced Mathematics and Information Technology.
+
+    <ul>
+      <li>Awarded a Medal of Excellence for achieving an overall diploma score exceeding 98%</li>
+      <li>State Matura Examination Results:</li>
+      <ul> 
+        <li>Bulgarian Language and Literature: 97%</li>
+        <li>Mathematics (elective): 95%</li>
+      </ul>
+      <li> Studied in an English-intensive curriculum with advanced language training</li> 
+    </ul>
+  </p>
   </section>
 </div>
 
@@ -117,12 +132,12 @@
       </div>
 
       <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/xrybrsx"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">xrybrsx</span></a></li>
-        </ul>
+       
 </div>
 
       <div class="footer-col footer-col-3">
         <p>&copy; 2025 Raya Bakarska</p>
-        <p>Documenting my tech journey and personal projects.</p>
+        <p>Documenting my technical journey and personal projects.</p>
       </div>
     </div>
 
@@ -131,38 +146,57 @@
 </footer>
 
 <script>
-  // Smooth scroll
-  document.querySelectorAll('.timeline-link').forEach(link => {
-    link.addEventListener('click', function(e) {
-      e.preventDefault();
-      document.querySelector(this.getAttribute('href')).scrollIntoView({
-        behavior: 'smooth'
-      });
-    });
-  });
-  
-  // Scrollspy
   const sections = document.querySelectorAll('.timeline-section');
   const navLinks = document.querySelectorAll('.timeline-link');
   
-  window.addEventListener('scroll', () => {
-    let current = "";
+  const sectionMap = {};
+  sections.forEach(section => {
+    sectionMap[section.id] = section;
+  });
   
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop - 100;
-      if (scrollY >= sectionTop) {
-        current = section.getAttribute('id');
+  const observerOptions = {
+    root: null,
+    rootMargin: '-20% 0px -60% 0px',
+    threshold: 0
+  };
+  
+  function updateActiveLink(id) {
+    navLinks.forEach(link => {
+      const linkTarget = link.getAttribute('href').slice(1);
+      if (linkTarget === id) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
       }
     });
+  }
   
-    navLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === `#${current}`) {
-        link.classList.add('active');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        updateActiveLink(entry.target.id);
+      }
+    });
+  }, observerOptions);
+  
+  sections.forEach(section => observer.observe(section));
+  
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+  
+      const targetId = link.getAttribute('href').slice(1);
+      const target = document.getElementById(targetId);
+      if (target) {
+        window.scrollTo({
+          top: target.offsetTop,
+          behavior: 'smooth'
+        });
       }
     });
   });
   </script>
+  
   
 </body>
 
