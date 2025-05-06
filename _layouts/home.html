@@ -8,19 +8,19 @@
 <meta name="generator" content="Jekyll v4.4.1" />
 <meta property="og:title" content="Raya Bakarska" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
-<meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<meta name="description" content=" Personal resume and portfolio of Raya Bakarska." />
+<meta property="og:description" content=" Personal resume and portfolio of Raya Bakarska." />
 <link rel="canonical" href="http://localhost:4000/" />
 <meta property="og:url" content="http://localhost:4000/" />
-<meta property="og:site_name" content="Your awesome title" />
+<meta property="og:site_name" content="Resume" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Your awesome title" />
+<meta property="twitter:title" content="Resume" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","headline":"Your awesome title","name":"Your awesome title","url":"http://localhost:4000/"}</script>
+{"@context":"https://schema.org","@type":"WebSite","description":" Personal resume and portfolio of Raya Bakarska.","headline":"Resume","Raya Bakarska":"Raya Bakarska","url":"http://localhost:4000/"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="{{ site.baseurl }}/assets/main.css">
-<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Your awesome title" /></head>
+<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Raya Bakarska" /></head>
 <body><header class="site-header" role="banner">
 
   <div class="wrapper"><a class="site-title" rel="author" href="/">Home</a>
@@ -78,16 +78,16 @@
 
   <section id="university" class="timeline-section">
     <h2>University of Southampton</h2>
-    <h3>BSc Computer Science</h3>
-    <p>2:1 GPA
+    <h3>BSc Computer Science — <i>2:1 Honours</i></h3>
+    <p> Key Modules:
       <ul>
         <li> Algorithms and Data Structures</li>
-        <li> Cloud and Web Application Development and Security</li>
-        <li> Web Infrastructure and RESTful APIs</li>
-        <li> OOP, Java Concurrency and Networking</li>
-        <li> Software Modelling and Design ( Agile, UML )</li>
-        <li> Data Management and Advanced Databases</li>
-        <li> Social Computing Techniques ( Recommendation Systems, ML )</li>
+        <li> Cloud & Web Application Development and Security</li>
+        <li> Web Infrastructure & RESTful APIs</li>
+        <li> Object-Oriented Programming (Java), Concurrency & Networking</li>
+        <li> Software Modelling & Design ( Agile, UML )</li>
+        <li> Data Management & Advanced Databases</li>
+        <li> Social Computing Techniques (Recommendation Systems, Machine Learning)</li>
       </ul>
      </p>
   </section>
@@ -149,58 +149,99 @@
 </footer>
 
 <script>
-  const sections = document.querySelectorAll('.timeline-section');
-  const navLinks = document.querySelectorAll('.timeline-link');
-  
-  const sectionMap = {};
-  sections.forEach(section => {
-    sectionMap[section.id] = section;
-  });
-  
-  const observerOptions = {
-    root: null,
-    rootMargin: '-20% 0px -60% 0px',
-    threshold: 0
-  };
-  
-  function updateActiveLink(id) {
-    navLinks.forEach(link => {
-      const linkTarget = link.getAttribute('href').slice(1);
-      if (linkTarget === id) {
-        link.classList.add('active');
-      } else {
-        link.classList.remove('active');
-      }
-    });
-  }
-  
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        updateActiveLink(entry.target.id);
-      }
-    });
-  }, observerOptions);
-  
-  sections.forEach(section => observer.observe(section));
-  
+ const sections = document.querySelectorAll('.timeline-section');
+const navLinks = document.querySelectorAll('.timeline-link');
+
+const sectionMap = {};
+sections.forEach(section => {
+  sectionMap[section.id] = section;
+});
+
+const observerOptions = {
+  root: null,
+  rootMargin: '-20% 0px -60% 0px', // Adjust as needed for the offset
+  threshold: 0
+};
+
+let clickedLink = null;  // Track if a link was clicked
+
+function updateActiveLink(id) {
   navLinks.forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-  
-      const targetId = link.getAttribute('href').slice(1);
-      const target = document.getElementById(targetId);
-      if (target) {
-        window.scrollTo({
-          top: target.offsetTop,
-          behavior: 'smooth'
-        });
-      }
-    });
+    const linkTarget = link.getAttribute('href').slice(1);
+    if (linkTarget === id) {
+      link.classList.add('active');
+    } else {
+      link.classList.remove('active');
+    }
   });
-  </script>
-  
-  
+}
+
+// Update active link based on scroll and section visibility
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !clickedLink) {  // Only update if no link was clicked
+      updateActiveLink(entry.target.id);
+    }
+  });
+}, observerOptions);
+
+sections.forEach(section => observer.observe(section));
+
+// Remove active class on click, and then scroll to the target section
+navLinks.forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+
+    // Set the clicked link as active and prevent other links from staying active
+    clickedLink = link;  // Mark the link as clicked
+    navLinks.forEach(l => l.classList.remove('active')); // Remove active from all
+
+    const targetId = link.getAttribute('href').slice(1);
+    const target = document.getElementById(targetId);
+    if (target) {
+      // Smooth scroll to target
+      window.scrollTo({
+        top: target.offsetTop,
+        behavior: 'smooth'
+      });
+
+      // Set the clicked link as active
+      link.classList.add('active');
+    }
+    
+  });
+});
+
+// Additional logic to ensure the active state behaves correctly after scrolling
+window.addEventListener('scroll', () => {
+  // Reset clickedLink after scroll, to allow observer to manage the active link again
+  if (clickedLink) {
+    clickedLink.className = "timeline-link"; // Reset after scrolling
+  }
+
+  // Check which section is in view
+  const activeSection = getActiveSection();
+  if (activeSection) {
+    updateActiveLink(activeSection.id);
+  }
+});
+
+function getActiveSection() {
+  let activeSection = null;
+  let smallestOffset = window.innerHeight;
+
+  sections.forEach(section => {
+    const rect = section.getBoundingClientRect();
+    const distanceToCenter = Math.abs(rect.top - window.innerHeight / 2);
+    if (distanceToCenter < smallestOffset) {
+      smallestOffset = rect.top;
+      activeSection = section;
+    }
+  });
+
+  return activeSection;
+}
+</script>
 </body>
 
 </html>

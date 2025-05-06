@@ -80,19 +80,20 @@ body {
   position: relative;
 }
 
-
+/* Links */
 
 .timeline-link {
   display: block;
   width: 12px;
   height: 12px;
-  background-color: #ccc;
+  background-color: #ccc ;
   border-radius: 50%;
   transition: all 0.3s;
   position: relative;
 }
 
-.timeline-link::after {
+
+.timeline-link.active::after {
   content: attr(data-title);
   position: absolute;
   right: 30px;
@@ -105,26 +106,37 @@ body {
   color: #333;
 }
 
-/* .timeline-link.active {
-  background-color: #492c2a !important;
-} */
-
 .timeline-link.active {
   background-color: #492c2a;
   width: 16px;
   height: 16px;
 }
-
+/* 
 .timeline-link:hover,
 .timeline-link.active {
   background-color: #492c2a;
   width: 16px;
   height: 16px;
-}
+} */
 
 .timeline-link:hover::after,
 .timeline-link.active::after {
   opacity: 1;
+}
+
+.timeline-link {
+  color: transparent;
+  text-decoration: none;
+    width: 16px;
+    height: 16px;
+}
+.timeline-link:hover,
+.timeline-link:focus {
+  color: transparent;
+  text-decoration: none;
+}
+.timeline-link:visited {
+  color: inherit;
 }
 
 /* Timeline Sections */
@@ -145,17 +157,6 @@ body {
   margin-top: 0;
 }
 
-.timeline-link {
-  color: transparent;
-  text-decoration: none;
-    width: 16px;
-    height: 16px;
-}
-.timeline-link:hover,
-.timeline-link:focus {
-  color: transparent;
-  text-decoration: none;
-}
 
 
 /**
