@@ -130,11 +130,24 @@
 
     <div class="footer-col-wrapper">
       <div class="footer-col footer-col-1">
-        <ul class="contact-list">
-          <li class="p-name">Email</li><li><a class="u-email" href="mailto:bakarskaraya@yahoo.com">bakarskaraya@yahoo.com</a></li></ul>
+      <ul class="contact-list">
+        <li>
+          <a><svg class="svg-icon">
+            <use xlink:href="/assets/minima-social-icons.svg#mail"></use></svg>
+          <span class="u-email" href="mailto:bakarskaraya@yahoo.com">bakarskaraya@yahoo.com</span></a>
+        </li>
+        <li>
+          <a href="https://github.com/xrybrsx"><svg class="svg-icon">
+          <use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">GitHub</span></a>
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/in/raya-bakarska-324627193/"><svg class="svg-icon">
+          <use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">LinkedIn</span></a>
+        </li>
+      </ul>
       </div>
 
-      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/xrybrsx"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">xrybrsx</span></a></li>
+      <div class="footer-col footer-col-2"><ul class="social-media-list">
        
 </div>
 
@@ -159,7 +172,7 @@ sections.forEach(section => {
 
 const observerOptions = {
   root: null,
-  rootMargin: '-20% 0px -60% 0px', // Adjust as needed for the offset
+  rootMargin: '-90% 0px -10% 0px',// Adjust as needed for the offset
   threshold: 0
 };
 
@@ -241,6 +254,17 @@ function getActiveSection() {
 
   return activeSection;
 }
+
+//fade intro title
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 50) {
+    document.body.classList.add('scrolled');
+  } else {
+    document.body.classList.remove('scrolled');
+  }
+});
+
+
 </script>
 </body>
 

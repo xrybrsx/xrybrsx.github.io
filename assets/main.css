@@ -27,6 +27,7 @@ body {
 
 }
 
+
 .intro-heading {
   font-size: 2.5rem;
   font-weight: 700;
@@ -35,6 +36,12 @@ body {
   margin-top: 40px;
   margin-bottom: 20px;
   animation: fadeInUp 1s ease-in-out;
+}
+
+/* fade a bit intro heading */
+body.scrolled .intro-heading{
+  opacity: 0.5;
+
 }
 
 @keyframes fadeInUp {
@@ -148,7 +155,7 @@ body {
 
 .timeline-section {
   margin-bottom: 40px;
-  min-height: 100vh;
+  min-height: 40vh;
   padding: 50px 20px;
   border-bottom: 1px solid #eee;
 }
@@ -157,6 +164,45 @@ body {
   margin-top: 0;
 }
 
+
+h2 {
+  font-family: "Segoe UI", serif;
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #2c2c2c;
+  letter-spacing: -0.5px;
+}
+
+h3 {
+  font-family:  "Segoe UI", serif;
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  color: #2c2c2c;
+  letter-spacing: -0.5px;
+}
+
+p{
+  font-family: "Segoe UI", serif;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+li {
+  font-family: "Segoe UI", serif;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.subtitle {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1.1rem;
+  color: #666;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
 
 
 /**
