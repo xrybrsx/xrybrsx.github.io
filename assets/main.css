@@ -32,7 +32,8 @@ body {
   font-size: 2.5rem;
   font-weight: 700;
   color: #333;
-  text-align: center;
+  text-align: match-parent;
+  margin-left: 4%;
   margin-top: 40px;
   margin-bottom: 20px;
   animation: fadeInUp 1s ease-in-out;
@@ -56,21 +57,10 @@ body.scrolled .intro-heading{
 }
 
 /* Timeline Navigation */
-
-/*.timeline-nav {
-  position: fixed;
-  top: 50%;
-  left: 40px;
-  transform: translateY(-50%);
-  z-index: 1000;
-}
-  */
-/* Changed from left: 40px to right: 0 */
-
 .timeline-nav {
   position: fixed;
   top: 50%;
-  right: 10px; /* Changed from left: 0 to right: 0 */
+  right: 10px;
   transform: translateY(-50%);
   padding: 10px;
   z-index: 1000;
@@ -88,19 +78,26 @@ body.scrolled .intro-heading{
 }
 
 /* Links */
-
 .timeline-link {
   display: block;
   width: 12px;
   height: 12px;
-  background-color: #ccc ;
+  background-color: #ccc;
   border-radius: 50%;
   transition: all 0.3s;
   position: relative;
+  text-decoration: none;
 }
 
+/* Style for the dot only, not affecting the text/icons */
+.timeline-link span {
+  color: transparent;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 
-.timeline-link.active::after {
+.timeline-link::after {
   content: attr(data-title);
   position: absolute;
   right: 30px;
@@ -118,30 +115,17 @@ body.scrolled .intro-heading{
   width: 16px;
   height: 16px;
 }
-/* 
-.timeline-link:hover,
-.timeline-link.active {
-  background-color: #492c2a;
-  width: 16px;
-  height: 16px;
-} */
 
 .timeline-link:hover::after,
 .timeline-link.active::after {
   opacity: 1;
 }
 
-.timeline-link {
-  color: transparent;
-  text-decoration: none;
-    width: 16px;
-    height: 16px;
-}
 .timeline-link:hover,
 .timeline-link:focus {
-  color: transparent;
   text-decoration: none;
 }
+
 .timeline-link:visited {
   color: inherit;
 }
@@ -163,7 +147,105 @@ body.scrolled .intro-heading{
 .timeline-section h2 {
   margin-top: 0;
 }
+@media (max-width: 768px) {
+  .timeline-nav {
+    display: none;
+  }
+}
 
+/* Bottom Tab Bar Styles */
+.bottom-tab-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.95); /* Semi-transparent white */
+  backdrop-filter: blur(10px); /* Blur effect for modern browsers */
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  height: 60px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  display: none; /* Hidden by default, shown on mobile */
+}
+
+/* Container for the tabs */
+.bottom-tab-nav ul {
+  display: flex;
+  justify-content: space-around;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  height: 100%;
+}
+
+/* Individual tab items */
+.bottom-tab-nav li {
+  display: flex;
+  flex: 1;
+}
+
+/* Tab links */
+.bottom-tab-nav a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 8px 0;
+  color: #777;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+/* Active tab styling */
+/* .bottom-tab-nav a.active {
+  color: #492c2a; 
+  font-weight: 600;
+  font-size: 13px;
+} */
+
+/* Indicator for active tab */
+/* .bottom-tab-nav a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 3px;
+  background-color: #492c2a;
+  border-radius: 1.5px;
+} */
+
+/* Show the bottom tab nav on mobile devices */
+@media (max-width: 768px) {
+  .bottom-tab-nav {
+    display: block;
+  }
+  
+  /* Add some bottom padding to the content to prevent overlap */
+  body {
+    padding-bottom: 60px;
+  }
+  
+  /* Adjust section padding to account for the tab bar */
+  .timeline-section {
+    padding-bottom: 70px; /* original padding + extra for the tab bar */
+  }
+}
+
+/* Animation for tab transitions */
+@keyframes tabIndicator {
+  0% { width: 0; opacity: 0; }
+  100% { width: 24px; opacity: 1; }
+}
+
+.bottom-tab-nav a.active::after {
+  animation: tabIndicator 0.3s ease forwards;
+}
 
 h2 {
   font-family: "Segoe UI", serif;

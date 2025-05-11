@@ -23,7 +23,7 @@
 <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Raya Bakarska" /></head>
 <body><header class="site-header" role="banner">
 
-  <div class="wrapper"><a class="site-title" rel="author" href="/">Home</a>
+  <!-- <div class="wrapper"><a class="site-title" rel="author" href="/">Resume</a> -->
     <!-- <nav class="site-nav">
         <input type="checkbox" id="nav-trigger" class="nav-trigger" />
         <label for="nav-trigger">
@@ -45,10 +45,10 @@
 <!-- ✨ Your timeline starts here -->
 <div class="timeline-nav">
   <ul>
-    <li><a href="#intro" class="timeline-link" data-title="Intro">About Me</a></li>
-    <li><a href="#experience" class="timeline-link" data-title="Experience">Experience</a></li>
-    <li><a href="#university" class="timeline-link" data-title="University">University</a></li>
-    <li><a href="#high-school" class="timeline-link" data-title="High School">High School</a></li>
+    <li><a href="#intro" class="timeline-link active" data-title="Intro"></a></li>
+    <li><a href="#experience" class="timeline-link" data-title="Experience"></a></li>
+    <li><a href="#university" class="timeline-link" data-title="University"></a></li>
+    <li><a href="#high-school" class="timeline-link" data-title="High School"></a></li>
   </ul>
 </div>
 
@@ -107,21 +107,11 @@
   </p>
   </section>
 </div>
-
-<!-- Removing Posts -->
-<!--<h2 class="post-list-heading">Posts</h2>
-    <ul class="post-list"><li><span class="post-meta">Apr 26, 2025</span>
-        <h3>
-          <a class="post-link" href="/jekyll/update/2025/04/26/welcome-to-jekyll.html">
-            Welcome to Jekyll!
-          </a>
-        </h3></li></ul>
-
-    <p class="rss-subscribe">subscribe <a href="/feed.xml">via RSS</a></p>-->
-  
  </div>
       </div>
-    </main><footer class="site-footer h-card">
+    </main>
+    
+  <footer class="site-footer h-card">
   <data class="u-url" href="/"></data>
 
   <div class="wrapper">
@@ -161,111 +151,156 @@
 
 </footer>
 
-<script>
- const sections = document.querySelectorAll('.timeline-section');
-const navLinks = document.querySelectorAll('.timeline-link');
+<nav class="bottom-tab-nav">
+  <ul>
+    <li><a href="#intro" class="tab-link active">Intro</a></li>
+    <li><a href="#experience" class="tab-link">Work</a></li>
+    <li><a href="#university" class="tab-link">Uni</a></li>
+    <li><a href="#high-school" class="tab-link">School</a></li>
+  </ul>
+</nav>
 
-const sectionMap = {};
-sections.forEach(section => {
-  sectionMap[section.id] = section;
-});
-
-const observerOptions = {
-  root: null,
-  rootMargin: '-90% 0px -10% 0px',// Adjust as needed for the offset
-  threshold: 0
-};
-
-let clickedLink = null;  // Track if a link was clicked
-
-function updateActiveLink(id) {
-  navLinks.forEach(link => {
-    const linkTarget = link.getAttribute('href').slice(1);
-    if (linkTarget === id) {
-      link.classList.add('active');
-    } else {
-      link.classList.remove('active');
-    }
-  });
-}
-
-// Update active link based on scroll and section visibility
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting && !clickedLink) {  // Only update if no link was clicked
-      updateActiveLink(entry.target.id);
-    }
-  });
-}, observerOptions);
-
-sections.forEach(section => observer.observe(section));
-
-// Remove active class on click, and then scroll to the target section
-navLinks.forEach(link => {
-  link.addEventListener('click', e => {
-    e.preventDefault();
-
-    // Set the clicked link as active and prevent other links from staying active
-    clickedLink = link;  // Mark the link as clicked
-    navLinks.forEach(l => l.classList.remove('active')); // Remove active from all
-
-    const targetId = link.getAttribute('href').slice(1);
-    const target = document.getElementById(targetId);
-    if (target) {
-      // Smooth scroll to target
-      window.scrollTo({
-        top: target.offsetTop,
-        behavior: 'smooth'
-      });
-
-      // Set the clicked link as active
-      link.classList.add('active');
-    }
-    
-  });
-});
-
-// Additional logic to ensure the active state behaves correctly after scrolling
-window.addEventListener('scroll', () => {
-  // Reset clickedLink after scroll, to allow observer to manage the active link again
-  if (clickedLink) {
-    clickedLink.className = "timeline-link"; // Reset after scrolling
-  }
-
-  // Check which section is in view
-  const activeSection = getActiveSection();
-  if (activeSection) {
-    updateActiveLink(activeSection.id);
-  }
-});
-
-function getActiveSection() {
-  let activeSection = null;
-  let smallestOffset = window.innerHeight;
-
-  sections.forEach(section => {
-    const rect = section.getBoundingClientRect();
-    const distanceToCenter = Math.abs(rect.top - window.innerHeight / 2);
-    if (distanceToCenter < smallestOffset) {
-      smallestOffset = rect.top;
-      activeSection = section;
-    }
-  });
-
-  return activeSection;
-}
-
-//fade intro title
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 50) {
-    document.body.classList.add('scrolled');
-  } else {
-    document.body.classList.remove('scrolled');
-  }
-});
-
-
-</script>
 </body>
+
+<script>
+
+// Improved Timeline Navigation Script
+document.addEventListener('DOMContentLoaded', function() {
+  const sections = document.querySelectorAll('.timeline-section');
+  const navLinks = document.querySelectorAll('.timeline-link');
+  
+  // Track active state and scrolling
+  let isScrolling = false;
+  let userClicked = false;
+  let scrollTimeout;
+  
+  // Get the header height for offset calculation (if you have a fixed header)
+  const headerOffset = 0; // Set this to your header height if needed
+  
+  // Function to determine which section is most visible
+  function getMostVisibleSection() {
+    let maxVisibleSection = null;
+    let maxVisibleAmount = 0;
+    
+    sections.forEach(section => {
+      const rect = section.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      
+      // Calculate how much of the section is visible in the viewport
+      const visibleTop = Math.max(0, rect.top);
+      const visibleBottom = Math.min(viewportHeight, rect.bottom);
+      const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+      
+      // Calculate the percentage of the section that is visible
+      const visiblePercent = visibleHeight / rect.height;
+      
+      // Weight sections by their position in the viewport (middle gets higher weight)
+      const viewportMiddle = viewportHeight / 2;
+      const sectionMiddle = (rect.top + rect.bottom) / 2;
+      const distanceFromMiddle = Math.abs(viewportMiddle - sectionMiddle) / viewportHeight;
+      const positionWeight = 1 - distanceFromMiddle;
+      
+      // Combine visibility and position for final score
+      const visibilityScore = visiblePercent * positionWeight;
+      
+      if (visibilityScore > maxVisibleAmount) {
+        maxVisibleAmount = visibilityScore;
+        maxVisibleSection = section;
+      }
+    });
+    
+    return maxVisibleSection;
+  }
+  
+  // Update the active navigation link
+  function updateActiveLink(id) {
+    navLinks.forEach(link => {
+      const linkTarget = link.getAttribute('href').slice(1);
+      if (linkTarget === id) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+  }
+  
+  // Scroll to section when link is clicked
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      userClicked = true;
+      
+      // Remove active class from all links
+      navLinks.forEach(l => l.classList.remove('active'));
+      
+      // Add active class to clicked link
+      link.classList.add('active');
+      
+      // Get target section and scroll to it
+      const targetId = link.getAttribute('href').slice(1);
+      const targetSection = document.getElementById(targetId);
+      
+      if (targetSection) {
+        const targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+        
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+        
+        // Reset user click flag after scrolling completes
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+          userClicked = false;
+        }, 1000); // Adjust this timeout based on your scroll animation duration
+      }
+    });
+  });
+  
+  // Update active link on scroll
+  window.addEventListener('scroll', () => {
+    // Don't update while user click is active
+    if (userClicked) return;
+    
+    if (!isScrolling) {
+      window.requestAnimationFrame(() => {
+        const currentSection = getMostVisibleSection();
+        if (currentSection) {
+          updateActiveLink(currentSection.id);
+        }
+        isScrolling = false;
+      });
+    }
+    isScrolling = true;
+    
+    // Add scrolled class to body for other effects
+    if (window.scrollY > 50) {
+      document.body.classList.add('scrolled');
+    } else {
+      document.body.classList.remove('scrolled');
+    }
+  });
+  
+  // Initialize the active link
+  window.addEventListener('load', () => {
+    const initialSection = getMostVisibleSection();
+    if (initialSection) {
+      updateActiveLink(initialSection.id);
+    }
+  });
+  
+  // Also update on resize in case section dimensions change
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      const currentSection = getMostVisibleSection();
+      if (currentSection) {
+        updateActiveLink(currentSection.id);
+      }
+    }, 250);
+  });
+});
+</script>
 
 </html>
