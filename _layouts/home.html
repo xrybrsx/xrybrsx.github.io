@@ -32,7 +32,7 @@
 <!-- ✨ Your timeline starts here -->
 <div class="timeline-nav">
   <ul>
-    <li><a href="#intro" class="timeline-link active" data-title="Intro"></a></li>
+    <li><a href="#intro" class="timeline-link" data-title="Intro"></a></li>
     <li><a href="#experience" class="timeline-link" data-title="Experience"></a></li>
     <li><a href="#university" class="timeline-link" data-title="University"></a></li>
     <li><a href="#high-school" class="timeline-link" data-title="High School"></a></li>
@@ -154,7 +154,10 @@
 // Improved Timeline Navigation Script
 document.addEventListener('DOMContentLoaded', function() {
   const sections = document.querySelectorAll('.timeline-section');
-  const navLinks = document.querySelectorAll('.timeline-link');
+  const navLinks = window.innerWidth > 768 
+    ? document.querySelectorAll('.timeline-link') 
+    : document.querySelectorAll('.tab-link');
+  
   
   // Track active state and scrolling
   let isScrolling = false;

@@ -29,7 +29,7 @@ body {
 
 
 .intro-heading {
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: 700;
   color: #333;
   text-align: match-parent;
@@ -201,14 +201,15 @@ body.scrolled .intro-heading{
 }
 
 /* Active tab styling */
-/* .bottom-tab-nav a.active {
-  color: #492c2a; 
+.bottom-tab-nav a.active {
+  color: #492c2a !important;
   font-weight: 600;
   font-size: 13px;
-} */
+  text-decoration: none;
+}
 
 /* Indicator for active tab */
-/* .bottom-tab-nav a.active::after {
+.bottom-tab-nav a.active::after {
   content: '';
   position: absolute;
   bottom: -1px;
@@ -218,7 +219,16 @@ body.scrolled .intro-heading{
   height: 3px;
   background-color: #492c2a;
   border-radius: 1.5px;
-} */
+  text-decoration: none;
+}
+
+.bottom-tab-nav a:visited,
+.bottom-tab-nav a:hover,
+.bottom-tab-nav a:focus,
+.bottom-tab-nav a:active {
+  text-decoration: none;
+  color: #777; /* Prevent underline in all states */
+}
 
 /* Show the bottom tab nav on mobile devices */
 @media (max-width: 768px) {
@@ -229,8 +239,25 @@ body.scrolled .intro-heading{
   /* Add some bottom padding to the content to prevent overlap */
   body {
     padding-bottom: 60px;
+
   }
-  
+
+  .intro-heading {
+    margin-left: 7%;
+  }
+  p {
+    font-size: 1.1rem !important;  }
+
+  .sections {
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-top: 0px;
+}
+ li p, 
+ li li {
+  margin-left: -25px;
+ }
+
   /* Adjust section padding to account for the tab bar */
   .timeline-section {
     padding-bottom: 70px; /* original padding + extra for the tab bar */
@@ -250,6 +277,7 @@ body.scrolled .intro-heading{
 h2 {
   font-family: "Segoe UI", serif;
   font-size: 2rem;
+  font-weight: 600 !important; 
   margin-bottom: 10px;
   color: #2c2c2c;
   letter-spacing: -0.5px;
@@ -259,6 +287,7 @@ h3 {
   font-family:  "Segoe UI", serif;
   font-size: 1.8rem;
   margin-bottom: 10px;
+  font-weight: 480 !important; 
   color: #2c2c2c;
   letter-spacing: -0.5px;
 }
@@ -418,8 +447,8 @@ pre > code {
   .wrapper {
     max-width: -webkit-calc(800px - (30px));
     max-width: calc(800px - (30px));
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-right: 5px;
+    padding-left: 5px;
   }
 }
 
