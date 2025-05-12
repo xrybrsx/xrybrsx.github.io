@@ -29,7 +29,7 @@ body {
 
 
 .intro-heading {
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: 700;
   color: #333;
   text-align: match-parent;
@@ -239,8 +239,25 @@ body.scrolled .intro-heading{
   /* Add some bottom padding to the content to prevent overlap */
   body {
     padding-bottom: 60px;
+
   }
-  
+
+  .intro-heading {
+    margin-left: 7%;
+  }
+  p {
+    font-size: 1.1rem !important;  }
+
+  .sections {
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-top: 0px;
+}
+ li p, 
+ li li {
+  margin-left: -25px;
+ }
+
   /* Adjust section padding to account for the tab bar */
   .timeline-section {
     padding-bottom: 70px; /* original padding + extra for the tab bar */
@@ -260,6 +277,7 @@ body.scrolled .intro-heading{
 h2 {
   font-family: "Segoe UI", serif;
   font-size: 2rem;
+  font-weight: 600 !important; 
   margin-bottom: 10px;
   color: #2c2c2c;
   letter-spacing: -0.5px;
@@ -269,6 +287,7 @@ h3 {
   font-family:  "Segoe UI", serif;
   font-size: 1.8rem;
   margin-bottom: 10px;
+  font-weight: 480 !important; 
   color: #2c2c2c;
   letter-spacing: -0.5px;
 }
@@ -428,8 +447,8 @@ pre > code {
   .wrapper {
     max-width: -webkit-calc(800px - (30px));
     max-width: calc(800px - (30px));
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-right: 5px;
+    padding-left: 5px;
   }
 }
 
