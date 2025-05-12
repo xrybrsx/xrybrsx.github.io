@@ -201,14 +201,15 @@ body.scrolled .intro-heading{
 }
 
 /* Active tab styling */
-/* .bottom-tab-nav a.active {
-  color: #492c2a; 
+.bottom-tab-nav a.active {
+  color: #492c2a !important;
   font-weight: 600;
   font-size: 13px;
-} */
+  text-decoration: none;
+}
 
 /* Indicator for active tab */
-/* .bottom-tab-nav a.active::after {
+.bottom-tab-nav a.active::after {
   content: '';
   position: absolute;
   bottom: -1px;
@@ -218,7 +219,16 @@ body.scrolled .intro-heading{
   height: 3px;
   background-color: #492c2a;
   border-radius: 1.5px;
-} */
+  text-decoration: none;
+}
+
+.bottom-tab-nav a:visited,
+.bottom-tab-nav a:hover,
+.bottom-tab-nav a:focus,
+.bottom-tab-nav a:active {
+  text-decoration: none;
+  color: #777; /* Prevent underline in all states */
+}
 
 /* Show the bottom tab nav on mobile devices */
 @media (max-width: 768px) {
